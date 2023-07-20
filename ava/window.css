@@ -100,7 +100,7 @@ body {
 
 #window {
   color: transparent;
-  background-color: transparent;
+  background-color: transparent !important;
   border-color: transparent;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   height: 759px; /* title bar height + content height */
