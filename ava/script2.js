@@ -184,7 +184,7 @@ navigator.mediaDevices
           let p = sphere.geometry.vertices[i];
           p.normalize().multiplyScalar(
             1 +
-              0.4 *
+              0.8 *
                 simplex.noise3D(
                   p.x * spikes + averageFrequency / 1000,
                   p.y * spikes + averageFrequency / 1000,

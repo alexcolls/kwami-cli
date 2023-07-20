@@ -234,4 +234,4 @@ export default defineComponent({
   },
 });
 </script>
-../../node_modules/@types/threethree/examples/jsm/controls/OrbitControls.js
+../../node_modules/@types/threethree/examples/jsm/controls/OrbitControls.js../../node_modules/@types/threethree/examples/jsm/controls/OrbitControls.js../../node_modules/@types/threethree/examples/jsm/controls/OrbitControls.js

@@ -401,4 +401,4 @@ body {
   background: #1c1f29;
 }
 </style>
-../../node_modules/@types/three
+../../node_modules/@types/three../../node_modules/@types/three../../node_modules/@types/three

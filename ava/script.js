@@ -1,9 +1,9 @@
 import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@0.121.1/examples/jsm/controls/OrbitControls.js";
 
 $(document).ready(function () {
-  let speedSlider = $('input[name="speed"]'),
-    spikesSlider = $('input[name="spikes"]'),
-    processingSlider = $('input[name="processing"]'),
+  let speedSlider = 50,
+    spikesSlider = 0.6,
+    processingSlider = 1,
     colorPicker1 = $('input[name="color1"]'),
     colorPicker2 = $('input[name="color2"]'),
     colorPicker3 = $('input[name="color3"]');
@@ -149,15 +149,16 @@ $(document).ready(function () {
   controls.enableDamping = true;
   controls.dampingFactor = 0.05;
   controls.rotateSpeed = 0.1;
+  controls.enableZoom = false;
 
   let update = () => {
     let time =
       (performance.now() *
         0.001 *
-        speedSlider.val() *
-        Math.pow(processingSlider.val(), 3)) /
+        speedSlider *
+        Math.pow(processingSlider, 3)) /
       100;
-    let spikes = spikesSlider.val() * processingSlider.val();
+    let spikes = spikesSlider * processingSlider;
 
     for (let i = 0; i < sphere.geometry.vertices.length; i++) {
       let p = sphere.geometry.vertices[i];
