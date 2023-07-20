@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import "./services/recordAudio";
-import LiquidBody from "./components/LiquidBody.vue";
-// import LiquidTalk from "./components/LiquidTalk.vue";
+// import LiquidBody from "./components/LiquidBody.vue";
+import LiquidTalk from "./components/LiquidTalk.vue";
 
 // import HumanFace from './components/HumanFace.vue'
 </script>
@@ -9,8 +9,8 @@ import LiquidBody from "./components/LiquidBody.vue";
 <template>
   <main>
     <!-- <HumanFace /> -->
-    <LiquidBody />
-    <!-- <LiquidTalk /> -->
+    <!-- <LiquidBody /> -->
+    <LiquidTalk />
   </main>
 </template>
 
