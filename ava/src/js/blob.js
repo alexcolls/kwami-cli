@@ -1,4 +1,5 @@
 import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@0.121.1/examples/jsm/controls/OrbitControls.js";
+import * as TWEEN from "tween.js";
 
 $(document).ready(function () {
   let speedSlider = 50,
@@ -204,7 +205,7 @@ $(document).ready(function () {
 
     if (intersects.length > 0) {
       // Play water sound
-      const waterSound = new Audio("path/to/water.mp3");
+      const waterSound = new Audio("/src/assets/aud/water-drop.mp3");
       waterSound.play();
 
       // Apply liquid effect

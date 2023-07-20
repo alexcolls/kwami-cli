@@ -6,7 +6,6 @@
   --button-shine-right: rgba(200, 148, 255, 0.65);
   --button-glow-start: #B000E8;
   --button-glow-end: #009FFD;
-
   appearance: none;
   outline: none;
   border: none;
@@ -23,60 +22,60 @@
   background: none;
   z-index: 1;
   box-shadow: 0 8px 20px var(--button-shadow);
+}
 
-  .gradient {
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    overflow: hidden;
-    -webkit-mask-image: -webkit-radial-gradient(white, black);
-    transform: scaleY(1.02) scaleX(1.005) rotate(-.35deg);
+.glow-button .gradient {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  transform: scaleY(1.02) scaleX(1.005) rotate(-.35deg);
+}
 
-    &:before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      transform: scale(1.05) translateY(-44px) rotate(0deg) translateZ(0);
-      padding-bottom: 100%;
-      border-radius: 50%;
-      background: linear-gradient(90deg, var(--button-shine-left), var(--button-shine-right));
-      animation: rotate linear 2s infinite;
-    }
-  }
+.glow-button .gradient:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  transform: scale(1.05) translateY(-44px) rotate(0deg) translateZ(0);
+  padding-bottom: 100%;
+  border-radius: 50%;
+  background: linear-gradient(90deg, var(--button-shine-left), var(--button-shine-right));
+  animation: rotate linear 2s infinite;
+}
 
-  span {
-    z-index: 1;
-    position: relative;
-    display: block;
-    padding: 10px 0;
-    width: 132px;
-    border-radius: inherit;
-    background-color: var(--button-background);
-    overflow: hidden;
-    -webkit-mask-image: -webkit-radial-gradient(white, black);
+.glow-button span {
+  z-index: 1;
+  position: relative;
+  display: block;
+  padding: 10px 0;
+  width: 132px;
+  border-radius: inherit;
+  background-color: var(--button-background);
+  overflow: hidden;
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+}
 
-    &:before {
-      content: '';
-      position: absolute;
-      left: -16px;
-      top: -16px;
-      transform: translate(var(--pointer-x, 0px), var(--pointer-y, 0px)) translateZ(0);
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background-color: var(--button-glow, transparent);
-      opacity: var(--button-glow-opacity, 0);
-      transition: opacity var(--button-glow-duration, .5s);
-      filter: blur(20px);
-    }
-  }
+.glow-button span:before {
+  content: '';
+  position: absolute;
+  left: -16px;
+  top: -16px;
+  transform: translate(var(--pointer-x, 0px), var(--pointer-y, 0px)) translateZ(0);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: var(--button-glow, transparent);
+  opacity: var(--button-glow-opacity, 0);
+  transition: opacity var(--button-glow-duration, .5s);
+  filter: blur(20px);
+}
 
-  &:hover {
-    --button-glow-opacity: 1;
-    --button-glow-duration: .25s;
-  }
+.glow-button:hover {
+  --button-glow-opacity: 1;
+  --button-glow-duration: .25s;
 }
 
 @keyframes rotate {
@@ -92,11 +91,11 @@ html {
 
 * {
   box-sizing: inherit;
+}
 
-  &:before,
-  &:after {
-    box-sizing: inherit;
-  }
+*:before,
+*:after {
+  box-sizing: inherit;
 }
 
 body {
@@ -107,25 +106,12 @@ body {
   align-items: center;
   background-color: #020112;
   overflow: hidden;
+}
 
-  &:before {
-    content: '';
-    position: absolute;
-    inset: 40% -60% 0 -60%;
-    background-image: radial-gradient(ellipse at bottom, #1D0559 0%, #020112 50%);
-    opacity: .4;
-  }
-
-  .twitter {
-    position: fixed;
-    display: block;
-    right: 12px;
-    bottom: 12px;
-
-    svg {
-      width: 32px;
-      height: 32px;
-      fill: #fff;
-    }
-  }
+body:before {
+  content: '';
+  position: absolute;
+  inset: 40% -60% 0 -60%;
+  background-image: radial-gradient(ellipse at bottom, #1D0559 0%, #020112 50%);
+  opacity: .4;
 }

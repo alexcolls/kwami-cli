@@ -1,3 +1,5 @@
+import "/src/css/button.css";
+
 document.querySelectorAll(".glow-button").forEach((button) => {
   const gradientElem = document.createElement("div");
   gradientElem.classList.add("gradient");
