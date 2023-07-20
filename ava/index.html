@@ -2,38 +2,51 @@
 <html>
   <head>
     <title>AVA</title>
-    <link rel="stylesheet" href="style.css">
-        <link rel="stylesheet" href="window.css">
+    <!-- <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="window.css"> -->
+    <!-- <link rel="stylesheet" href="src/css/index.css"> -->
 
   </head>
   <body>
+    <div id="app"></div>
+    <script type="module" src="main.js"></script>
     <div id="blob">
       <canvas></canvas>
     </div>
 
-     
-		<div id="window">
-			<!-- Title bar start -->
-			<div id="title-bar-width">
-				<div id="title-bar">
-					<div>
-						<span id="logo-description">AVA BETA</span>
-					</div>
-					<div>
-						<span id="minimize">&#8212;</span>
-						<span id="square">□</span>
-						<span id="exit">✕</span>
-					</div>
-				</div>
-			</div>
-			<!-- Content start -->
-			<div  id="fishlet">
-				<input id="input1" placeholder="insert data"></div>
-			</div>
-			<!-- <iframe id="content"
-				src="http://santander.com/"
-				frameBorder="0"></iframe> -->
-		</div>
+    <button class="glow-button">
+      <span>AVA</span>
+    </button>
+
+    <div id="window">
+      <!-- Title bar start -->
+      <div id="title-bar-width">
+        <div id="title-bar">
+          <div>
+            <span id="logo-description">AVA - ALPHA</span>
+          </div>
+          <div>
+            <span id="minimize">&#8212;</span>
+            <span id="square">□</span>
+            <span id="exit">✕</span>
+          </div>
+        </div>
+      </div>
+      <div class="controls">
+        <div>
+          <label>Color 1</label>
+          <input type="color" value="#1c1f29" name="color1">
+        </div>
+        <div>
+          <label>Color 2</label>
+          <input type="color" value="#E4ECFA" name="color2">
+        </div>
+        <div>
+          <label>Color 3</label>
+          <input type="color" value="#1c1f29" name="color3">
+        </div>
+      </div>
+    </div>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"></script>
     <script
@@ -42,9 +55,9 @@
     <script
       src="https://cdn.jsdelivr.net/npm/rangeslider.js/dist/rangeslider.min.js"></script>
 
-    <script type="module" src="script.js"></script>
-    <script src="window.js">
-   
-  </script>
+    <script type="module" src="./src/js/blob.js"></script>
+    <script src="./src/js/window.js"></script>
+    <script src="./src/js/button.js"></script>
+
   </body>
 </html>

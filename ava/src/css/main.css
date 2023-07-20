@@ -23,7 +23,7 @@
 } */
 
 .controls {
-  background: hsl(222, 15%, 29%);
+  /* background: hsl(222, 15%, 29%); */
   display: flex;
   padding: 20px;
   border-radius: 10px;

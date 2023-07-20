@@ -84,7 +84,7 @@ $(document).ready(function () {
       },
       shininess: {
         type: "f",
-        value: 100,
+        value: 1000,
       },
     },
     vertexShader: vertexShader,
@@ -136,19 +136,10 @@ $(document).ready(function () {
   sphere.castShadow = true;
   scene.add(sphere);
 
-  // Adding a plane that receives shadows
-  let planeGeometry = new THREE.PlaneGeometry(null, -1);
-  let planeMaterial = new THREE.MeshPhongMaterial({ color: "#1c1f29" });
-  let plane = new THREE.Mesh(planeGeometry, planeMaterial);
-  plane.receiveShadow = true;
-  plane.rotation.x = -0.5 * Math.PI;
-  plane.position.y = -3; // Adjust this value to position the plane beneath your 3D model
-  scene.add(plane);
-
   let controls = new OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true;
   controls.dampingFactor = 0.05;
-  controls.rotateSpeed = 0.1;
+  controls.rotateSpeed = 0.7;
   controls.enableZoom = false;
 
   let update = () => {
@@ -181,7 +172,7 @@ $(document).ready(function () {
   };
 
   function rotateCamera() {
-    const ROTATION_SPEED = 0.05;
+    const ROTATION_SPEED = 0.01;
     const cameraPosition = camera.position;
     const angle = (ROTATION_SPEED * Math.PI) / 180;
     const cosAngle = Math.cos(angle);
@@ -192,24 +183,70 @@ $(document).ready(function () {
     camera.lookAt(scene.position);
   }
 
-  function updateUniforms() {
-    scene.traverse(function (child) {
-      if (
-        child instanceof THREE.Mesh &&
-        child.material.type === "ShaderMaterial"
-      ) {
-        child.material.uniforms.uTime.value = TIME;
-        child.material.needsUpdate = false;
-      }
-    });
-  }
-
   function animate() {
     update();
     rotateCamera();
     renderer.render(scene, camera);
     requestAnimationFrame(animate);
   }
+
+  function createWaterEffect(event) {
+    console.log(event);
+    const mouse = new THREE.Vector2(
+      (event.clientX / window.innerWidth) * 2 - 1,
+      -(event.clientY / window.innerHeight) * 2 + 1
+    );
+
+    const raycaster = new THREE.Raycaster();
+    raycaster.setFromCamera(mouse, camera);
+
+    const intersects = raycaster.intersectObject(sphere);
+
+    if (intersects.length > 0) {
+      // Play water sound
+      const waterSound = new Audio("path/to/water.mp3");
+      waterSound.play();
+
+      // Apply liquid effect
+      const duration = 1000; // Duration of the liquid effect in milliseconds
+
+      const originalVertices = sphere.geometry.vertices.slice();
+
+      const tweens = [];
+
+      intersects.forEach((intersection) => {
+        const targetPosition = intersection.point;
+        const targetIndex = intersection.face.a;
+
+        const originalPosition = originalVertices[targetIndex].clone();
+        const targetPositionCopy = targetPosition.clone();
+
+        const tween = new TWEEN.Tween(originalPosition)
+          .to(targetPositionCopy, duration)
+          .easing(TWEEN.Easing.Quadratic.InOut)
+          .onUpdate(() => {
+            sphere.geometry.vertices[targetIndex].copy(originalPosition);
+            sphere.geometry.verticesNeedUpdate = true;
+          });
+
+        tweens.push(tween);
+      });
+
+      tweens.forEach((tween) => tween.start());
+
+      // Restore original state with default animation after the liquid effect
+      setTimeout(() => {
+        tweens.forEach((tween) => tween.stop());
+
+        sphere.geometry.vertices = originalVertices;
+        sphere.geometry.verticesNeedUpdate = true;
+
+        // Play default animation here
+      }, duration);
+    }
+  }
+
+  $canvas.on("click", createWaterEffect);
 
   requestAnimationFrame(animate);
 });
