@@ -3,6 +3,6 @@ import "./src/js";
 
 document.querySelector("#app").innerHTML = `
   <div>
-   
+
   </div>
 `;

@@ -1,7 +1,7 @@
 import "./blob";
 import "./window";
 import "./button";
-import "./win";
+import "./win2";
 
 $(document).ready(function () {
   // Simulate some loading time (you can adjust the time as needed)

@@ -23,6 +23,7 @@
   background: none;
   z-index: 1;
   box-shadow: 0 8px 20px var(--button-shadow);
+  text-align: center;
 }
 
 .main-button {
@@ -58,13 +59,15 @@
 .glow-button span {
   z-index: 1;
   position: relative;
-  display: block;
+  display: flex;
   padding: 10px 0;
   width: 132px;
   border-radius: inherit;
   background-color: var(--button-background);
   overflow: hidden;
   -webkit-mask-image: -webkit-radial-gradient(white, black);
+  text-align: center;
+  justify-content: center;
 }
 
 .glow-button span:before {

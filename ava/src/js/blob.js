@@ -173,7 +173,7 @@ $(document).ready(function () {
   };
 
   function rotateCamera() {
-    const ROTATION_SPEED = 0.01;
+    const ROTATION_SPEED = 0.005;
     const cameraPosition = camera.position;
     const angle = (ROTATION_SPEED * Math.PI) / 180;
     const cosAngle = Math.cos(angle);
