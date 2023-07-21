@@ -6,5 +6,3 @@ document.querySelector("#app").innerHTML = `
    
   </div>
 `;
-
-setupCounter(document.querySelector("#counter"));

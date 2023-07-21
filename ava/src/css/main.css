@@ -1,7 +1,5 @@
-
-
 #blob {
-  position: absolute;
+  position: fixed;
 }
 
 #blob canvas {
@@ -29,12 +27,12 @@
   border-radius: 10px;
   position: relative;
   z-index: 3;
-  box-shadow: 0 4px 20px -1px rgba(18, 22, 33, .7);
+  box-shadow: 0 4px 20px -1px rgba(18, 22, 33, 0.7);
 }
 
-@media(max-width: 600px) {
+@media (max-width: 600px) {
   .controls {
-      flex-direction: column;
+    flex-direction: column;
   }
 }
 
@@ -51,13 +49,13 @@
 } */
 
 input {
-    border-radius: 10px;
-    background-color: transparent;
+  border-radius: 10px;
+  background-color: transparent;
 }
 
-@media(max-width: 600px) {
+@media (max-width: 600px) {
   .controls label {
-      margin-bottom: 12px;
+    margin-bottom: 12px;
   }
 }
 
@@ -101,12 +99,12 @@ input {
 }
 
 .rangeSlider__fill:before {
-  content: '';
+  content: "";
   left: -2px;
   top: -2px;
   bottom: -2px;
   right: -2px;
-  border: 2px solid #3F4656;
+  border: 2px solid #3f4656;
   border-radius: 6px;
   position: absolute;
 }
@@ -118,7 +116,7 @@ input {
 }
 
 .rangeSlider__handle {
-  border: 2px solid #3F4656;
+  border: 2px solid #3f4656;
   cursor: grab;
   display: inline-block;
   width: 22px;
@@ -146,7 +144,7 @@ body {
   overflow: hidden;
 }
 
-body {
+/* body {
   height: 100vh;
   width: 100vw;
   display: flex;
@@ -156,4 +154,65 @@ body {
   flex-direction: column;
   font-family: 'Source Sans Pro', Arial;
   background: #1c1f29;
+} */
+
+html {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: inherit;
+}
+
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+#loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+  z-index: 9999;
+  transition: opacity 1s ease-in-out;
+}
+
+#main-content {
+  position: absolute;
+  inset: 0% -60% 0 -60%;
+  background-image: radial-gradient(
+    ellipse at bottom,
+    #2b3041 0%,
+    #192225 40%,
+    #000000 100%
+  );
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  min-height: 100vh;
+  display: flex;
+  font-family: "Inter", Arial;
+  justify-content: center;
+  align-items: center;
+  /* background-color: #1c1f29; */
+  overflow: hidden;
+}
+
+#main-content.hidden {
+  display: none;
+}
+
+#app.hidden {
+  display: none;
+}
+
+#window.hidden {
+  display: none;
 }

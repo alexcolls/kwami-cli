@@ -44,8 +44,9 @@ titleBar.addEventListener("mouseout", function handleMouseOver() {
 
 //////////////// Make window draggable start ////////////////
 // Make the DIV element draggable:
-var draggable = $("#window");
-var title = $("#title-bar");
+
+let draggable = $("#window");
+let title = $("#title-bar");
 
 title.on("mousedown", function (e) {
   var dr = $(draggable).addClass("drag");
@@ -92,7 +93,47 @@ $("#exit").click(function () {
   $("#main").css("display", "block");
 });
 
-$("#main").click(function () {
-  $("#window").css("display", "block");
-  $("#main").css("display", "none");
+let windowOpen = false;
+
+$("#window-button").click(function () {
+  if (windowOpen) {
+    $("#window").css("display", "block");
+    windowOpen = false;
+  } else {
+    $("#window").css("display", "none");
+    windowOpen = true;
+  }
+});
+
+document.querySelectorAll(".glow-window").forEach((button) => {
+  const gradientElem = document.createElement("div");
+  gradientElem.classList.add("gradient");
+
+  button.appendChild(gradientElem);
+
+  button.addEventListener("pointermove", (e) => {
+    const rect = button.getBoundingClientRect();
+
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    gsap.to(button, {
+      "--pointer-x": `${x}px`,
+      "--pointer-y": `${y}px`,
+      duration: 0.6,
+    });
+
+    gsap.to(button, {
+      "--window-glow": chroma
+        .mix(
+          getComputedStyle(button)
+            .getPropertyValue("--window-glow-start")
+            .trim(),
+          getComputedStyle(button).getPropertyValue("--window-glow-end").trim(),
+          x / rect.width
+        )
+        .hex(),
+      duration: 0.2,
+    });
+  });
 });
