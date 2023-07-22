@@ -160,7 +160,7 @@ $(document).ready(function () {
 
   let audioElement = document.createElement("audio");
 
-  audioElement.src = "/welcome.wav"; // specify the path to your audio file
+  audioElement.src = "/intro.mp3"; // specify the path to your audio file
 
   audioElement.controls = true; // if you want to display the browser's default audio controls
   document.body.appendChild(audioElement);
