@@ -159,7 +159,8 @@ $(document).ready(function () {
   controls.enableZoom = false;
 
   let audioElement = document.createElement("audio");
-  audioElement.src = "/welcome.wav"; // specify the path to your audio file
+
+  audioElement.src = "/song.mp3"; // specify the path to your audio file
   audioElement.controls = true; // if you want to display the browser's default audio controls
   document.body.appendChild(audioElement);
 
