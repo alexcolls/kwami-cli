@@ -158,19 +158,6 @@ $(document).ready(function () {
   controls.rotateSpeed = 0.7;
   controls.enableZoom = false;
 
-  let audioElement = document.createElement("audio");
-  audioElement.src = "/welcome.wav"; // specify the path to your audio file
-  audioElement.controls = true; // if you want to display the browser's default audio controls
-  document.body.appendChild(audioElement);
-
-  let audioContext = new (window.AudioContext || window.webkitAudioContext)();
-  let sourceNode = audioContext.createMediaElementSource(audioElement);
-  let analyser = audioContext.createAnalyser();
-  sourceNode.connect(analyser);
-  analyser.connect(audioContext.destination);
-
-  let frequencyData = new Uint8Array(analyser.frequencyBinCount);
-
   let update = () => {
     let time =
       (performance.now() *
@@ -178,29 +165,13 @@ $(document).ready(function () {
         speedSlider *
         Math.pow(processingSlider, 3)) /
       100;
-
-    analyser.getByteFrequencyData(frequencyData);
-
-    let average = 0;
-    for (let i = 0; i < frequencyData.length; i++) {
-      average += frequencyData[i];
-    }
-    average /= frequencyData.length;
-
-    let audioEffect = average / 128.0; // Normalize to [0, 1]
-
     let spikes = spikesSlider * processingSlider;
 
     for (let i = 0; i < sphere.geometry.vertices.length; i++) {
       let p = sphere.geometry.vertices[i];
       p.normalize().multiplyScalar(
         1 +
-          0.3 *
-            simplex.noise3D(
-              p.x * spikes + audioEffect,
-              p.y * spikes + audioEffect,
-              p.z * spikes + time + audioEffect
-            )
+          0.3 * simplex.noise3D(p.x * spikes, p.y * spikes, p.z * spikes + time)
       );
     }
 
