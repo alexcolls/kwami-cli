@@ -1,5 +1,5 @@
 import "./blob";
-import "./window";
+// import "./window";
 import "./button";
 import "./win2";
 
@@ -13,6 +13,6 @@ $(document).ready(function () {
   }, 3000); // 3 seconds (adjust the duration to suit your needs)
   setTimeout(function () {
     $("#loader").css("z-index", "-1");
-  }, 4000);
+  }, 2000);
   // $("#loader").css("z-index", "-1");
 });

@@ -1,13 +1,28 @@
 import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@0.121.1/examples/jsm/controls/OrbitControls.js";
-import * as TWEEN from "tween.js";
+// import * as TWEEN from "tween.js";
+
+function getRandomBetween(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
+function getRandomHexColor() {
+  const randomColor = Math.floor(Math.random() * 16777215).toString(16); // Generate random number between 0 and 16777215 (0xFFFFFF in decimal)
+  return "#" + randomColor.padStart(6, "0"); // Convert the number to a 6-digit hex color string
+}
 
 $(document).ready(function () {
-  let speedSlider = 50,
-    spikesSlider = 0.6,
-    processingSlider = 1,
+  let speedSlider = getRandomBetween(10, 100),
+    spikesSlider = getRandomBetween(0.2, 1.2),
+    processingSlider = getRandomBetween(0.5, 1.5),
+    rotationSpeed = getRandomBetween(0.001, 0.1),
     colorPicker1 = $('input[name="color1"]'),
     colorPicker2 = $('input[name="color2"]'),
     colorPicker3 = $('input[name="color3"]');
+
+  // Only pick random colors on page loafing
+  colorPicker1.val(getRandomHexColor());
+  colorPicker2.val(getRandomHexColor());
+  colorPicker3.val(getRandomHexColor());
 
   let $canvas = $("#blob canvas"),
     canvas = $canvas[0],
@@ -173,9 +188,8 @@ $(document).ready(function () {
   };
 
   function rotateCamera() {
-    const ROTATION_SPEED = 0.005;
     const cameraPosition = camera.position;
-    const angle = (ROTATION_SPEED * Math.PI) / 180;
+    const angle = (rotationSpeed * Math.PI) / 180;
     const cosAngle = Math.cos(angle);
     const sinAngle = Math.sin(angle);
     const newX = cameraPosition.x * cosAngle - cameraPosition.z * sinAngle;
@@ -191,63 +205,18 @@ $(document).ready(function () {
     requestAnimationFrame(animate);
   }
 
-  function createWaterEffect(event) {
-    console.log(event);
-    const mouse = new THREE.Vector2(
-      (event.clientX / window.innerWidth) * 2 - 1,
-      -(event.clientY / window.innerHeight) * 2 + 1
-    );
-
-    const raycaster = new THREE.Raycaster();
-    raycaster.setFromCamera(mouse, camera);
-
-    const intersects = raycaster.intersectObject(sphere);
-
-    if (intersects.length > 0) {
-      // Play water sound
-      const waterSound = new Audio("/src/assets/aud/water-drop.mp3");
-      waterSound.play();
-
-      // Apply liquid effect
-      const duration = 1000; // Duration of the liquid effect in milliseconds
-
-      const originalVertices = sphere.geometry.vertices.slice();
-
-      const tweens = [];
-
-      intersects.forEach((intersection) => {
-        const targetPosition = intersection.point;
-        const targetIndex = intersection.face.a;
-
-        const originalPosition = originalVertices[targetIndex].clone();
-        const targetPositionCopy = targetPosition.clone();
-
-        const tween = new TWEEN.Tween(originalPosition)
-          .to(targetPositionCopy, duration)
-          .easing(TWEEN.Easing.Quadratic.InOut)
-          .onUpdate(() => {
-            sphere.geometry.vertices[targetIndex].copy(originalPosition);
-            sphere.geometry.verticesNeedUpdate = true;
-          });
-
-        tweens.push(tween);
-      });
-
-      tweens.forEach((tween) => tween.start());
-
-      // Restore original state with default animation after the liquid effect
-      setTimeout(() => {
-        tweens.forEach((tween) => tween.stop());
-
-        sphere.geometry.vertices = originalVertices;
-        sphere.geometry.verticesNeedUpdate = true;
-
-        // Play default animation here
-      }, duration);
-    }
-  }
-
-  $canvas.on("click", createWaterEffect);
+  $canvas.click(function () {
+    speedSlider = getRandomBetween(10, 100);
+    spikesSlider = getRandomBetween(0.2, 1.2);
+    processingSlider = getRandomBetween(0.5, 1.5);
+    rotationSpeed = getRandomBetween(0.001, 0.1);
+    colorPicker1.val(getRandomHexColor());
+    colorPicker2.val(getRandomHexColor());
+    colorPicker3.val(getRandomHexColor());
+    material.uniforms.color1.value = new THREE.Color(colorPicker1.val());
+    material.uniforms.color2.value = new THREE.Color(colorPicker2.val());
+    material.uniforms.color3.value = new THREE.Color(colorPicker3.val());
+  });
 
   requestAnimationFrame(animate);
 });
