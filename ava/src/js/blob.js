@@ -12,8 +12,8 @@ function getRandomHexColor() {
 
 $(document).ready(function () {
   let speedSlider = getRandomBetween(10, 100),
-    spikesSlider = getRandomBetween(0.2, 1.2),
-    processingSlider = getRandomBetween(0.5, 1.5),
+    spikesSlider = getRandomBetween(0.2, 1.5),
+    processingSlider = getRandomBetween(0.5, 1.8),
     rotationSpeed = getRandomBetween(0.001, 0.1),
     colorPicker1 = $('input[name="color1"]'),
     colorPicker2 = $('input[name="color2"]'),
@@ -160,7 +160,7 @@ $(document).ready(function () {
 
   let audioElement = document.createElement("audio");
 
-  audioElement.src = "/song.mp3"; // specify the path to your audio file
+  audioElement.src = "/song2.mp3"; // specify the path to your audio file
   audioElement.controls = true; // if you want to display the browser's default audio controls
   document.body.appendChild(audioElement);
 
