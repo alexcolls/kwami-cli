@@ -14,7 +14,7 @@ $(document).ready(function () {
   let speedSlider = getRandomBetween(10, 100),
     spikesSlider = getRandomBetween(0.2, 1.7),
     processingSlider = getRandomBetween(0.5, 1),
-    rotationSpeed = getRandomBetween(0.001, 0.1),
+    rotationSpeed = getRandomBetween(0.001, 0.3),
     colorPicker1 = $('input[name="color1"]'),
     colorPicker2 = $('input[name="color2"]'),
     colorPicker3 = $('input[name="color3"]');
@@ -160,7 +160,8 @@ $(document).ready(function () {
 
   let audioElement = document.createElement("audio");
 
-  audioElement.src = "/song2.mp3"; // specify the path to your audio file
+  audioElement.src = "/welcome.wav"; // specify the path to your audio file
+
   audioElement.controls = true; // if you want to display the browser's default audio controls
   document.body.appendChild(audioElement);
 
@@ -237,9 +238,9 @@ $(document).ready(function () {
 
   $canvas.click(function () {
     speedSlider = getRandomBetween(10, 100);
-    spikesSlider = getRandomBetween(0.2, 1.8);
-    processingSlider = getRandomBetween(0.5, 1.3);
-    rotationSpeed = getRandomBetween(0.001, 0.05);
+    spikesSlider = getRandomBetween(0.2, 1.5);
+    processingSlider = getRandomBetween(0.5, 1);
+    rotationSpeed = getRandomBetween(0.001, 0.3);
     colorPicker1.val(getRandomHexColor());
     colorPicker2.val(getRandomHexColor());
     colorPicker3.val(getRandomHexColor());
