@@ -12,8 +12,8 @@ function getRandomHexColor() {
 
 $(document).ready(function () {
   let speedSlider = getRandomBetween(10, 100),
-    spikesSlider = getRandomBetween(0.2, 1.5),
-    processingSlider = getRandomBetween(0.5, 1.8),
+    spikesSlider = getRandomBetween(0.2, 1.7),
+    processingSlider = getRandomBetween(0.5, 1),
     rotationSpeed = getRandomBetween(0.001, 0.1),
     colorPicker1 = $('input[name="color1"]'),
     colorPicker2 = $('input[name="color2"]'),
@@ -237,8 +237,8 @@ $(document).ready(function () {
 
   $canvas.click(function () {
     speedSlider = getRandomBetween(10, 100);
-    spikesSlider = getRandomBetween(0.2, 1.2);
-    processingSlider = getRandomBetween(0.5, 1);
+    spikesSlider = getRandomBetween(0.2, 1.8);
+    processingSlider = getRandomBetween(0.5, 1.3);
     rotationSpeed = getRandomBetween(0.001, 0.05);
     colorPicker1.val(getRandomHexColor());
     colorPicker2.val(getRandomHexColor());
