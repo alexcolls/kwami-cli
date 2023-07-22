@@ -208,8 +208,8 @@ $(document).ready(function () {
   $canvas.click(function () {
     speedSlider = getRandomBetween(10, 100);
     spikesSlider = getRandomBetween(0.2, 1.2);
-    processingSlider = getRandomBetween(0.5, 1.5);
-    rotationSpeed = getRandomBetween(0.001, 0.1);
+    processingSlider = getRandomBetween(0.5, 1);
+    rotationSpeed = getRandomBetween(0.001, 0.05);
     colorPicker1.val(getRandomHexColor());
     colorPicker2.val(getRandomHexColor());
     colorPicker3.val(getRandomHexColor());
