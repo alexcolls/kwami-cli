@@ -160,9 +160,12 @@ $(document).ready(function () {
 
   let audioElement = document.createElement("audio");
 
-  audioElement.src = "/intro.mp3"; // specify the path to your audio file
+  audioElement.src = `/src/assets/aud/${String(
+    Math.round(getRandomBetween(1, 10))
+  )}.mp3`; // specify the path to your audio file
 
   audioElement.controls = true; // if you want to display the browser's default audio controls
+
   document.body.appendChild(audioElement);
 
   let audioContext = new (window.AudioContext || window.webkitAudioContext)();
