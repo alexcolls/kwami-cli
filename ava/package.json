@@ -1,7 +1,8 @@
 {
-  "name": "ava",
+  "name": "kwami",
   "private": true,
   "version": "0.0.0",
+  "description": "Well, kwami in itself is not a japanese word. It is a combination of quantic kami, where kami is a japanese word, meaning 'god'.",
   "type": "module",
   "scripts": {
     "dev": "vite",
