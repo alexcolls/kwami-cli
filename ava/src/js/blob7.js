@@ -78,7 +78,8 @@ $(document).ready(function () {
   lightTop.shadow.camera.bottom = -200;
   scene.add(lightTop);
 
-  let vertexShaders = `
+  let vertexShaders = [
+    `
       varying vec3 vUv;
       varying vec3 vNormal;
       varying vec3 vPosition;
@@ -91,9 +92,22 @@ $(document).ready(function () {
         gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
       }
 
-    `;
+    `,
+    `
+      varying vec3 vUv;
+      varying vec3 vNormal;
 
-  let fragmentShaders = `
+      void main() {
+        vUv = position;
+        vNormal = normalize(normalMatrix * normal);
+
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
+      }
+    `,
+  ];
+
+  let fragmentShaders = [
+    `
         varying vec3 vNormal;
         varying vec3 vPosition; // Add vPosition varying
 
@@ -127,7 +141,33 @@ $(document).ready(function () {
 
           gl_FragColor = vec4(color + specular, 1.0);
         }
-      `;
+      `,
+    `
+        varying vec3 vUv;
+        varying vec3 vNormal;
+        uniform vec3 color1;
+        uniform vec3 color2;
+        uniform vec3 color3;
+        uniform vec3 lightPosition;
+        uniform vec3 specularColor;
+        uniform float shininess;
+
+        void main() {
+            vec3 lightDir = normalize(lightPosition - vUv);
+            vec3 viewDir = normalize(-vUv);
+            vec3 reflectDir = reflect(-lightDir, vNormal);
+            float spec = pow(max(dot(viewDir, reflectDir), 0.0), shininess);
+            vec3 specular = specularColor * spec;
+
+            float t = 0.3*(vNormal.z + 1.0);
+            vec3 mixColor1 = mix(color1, color2, t) + specular;
+            vec3 mixColor2 = mix(color1, color3, t) + specular;
+            vec3 color = mix(mixColor1, mixColor2, vNormal.y*t) + specular;
+
+            gl_FragColor = vec4(color + specular, 1.0);
+        }
+    `,
+  ];
 
   let material = new THREE.ShaderMaterial({
     uniforms: {
@@ -156,8 +196,8 @@ $(document).ready(function () {
         value: 1000,
       },
     },
-    vertexShader: vertexShaders,
-    fragmentShader: fragmentShaders,
+    vertexShader: vertexShaders[textureType],
+    fragmentShader: fragmentShaders[textureType],
     wireframe: false,
   });
 
@@ -226,7 +266,7 @@ $(document).ready(function () {
   let audioElement = document.createElement("audio");
 
   audioElement.src = `/src/assets/aud/${String(
-    5 // Math.round(getRandomBetween(1, 10))
+    1 // Math.round(getRandomBetween(1, 10))
   )}.mp3`; // specify the path to your audio file
 
   audioElement.controls = true; // if you want to display the browser's default audio controls
@@ -351,6 +391,8 @@ $(document).ready(function () {
     intX = intX >= 0 ? 1 : -1;
     intY = intY >= 0 ? 1 : -1;
     intZ = intZ >= 0 ? 1 : -1;
+
+    updateMaterial();
   });
 
   requestAnimationFrame(animate);

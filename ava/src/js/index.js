@@ -1,5 +1,5 @@
 import "./blob";
-// import "./window";
+import "./window";
 import "./button";
 import "./win2";
 
