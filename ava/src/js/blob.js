@@ -1,8 +1,8 @@
 import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@0.121.1/examples/jsm/controls/OrbitControls.js";
 // import * as TWEEN from "tween.js";
 
-function getRandomBetween(min, max) {
-  return Math.random() * (max - min) + min;
+function getRandomBetween(min, max, digits = 2) {
+  return Number((Math.random() * (max - min) + min).toFixed(digits));
 }
 
 function getRandomHexColor() {
@@ -17,7 +17,21 @@ $(document).ready(function () {
     rotationSpeed = getRandomBetween(0.001, 0.3),
     colorPicker1 = $('input[name="color1"]'),
     colorPicker2 = $('input[name="color2"]'),
-    colorPicker3 = $('input[name="color3"]');
+    colorPicker3 = $('input[name="color3"]'),
+    animationIntesity = getRandomBetween(0.001, 1),
+    inverseForm = getRandomBetween(-1, 1, 2);
+
+  let intX = getRandomBetween(-1, 3, 0);
+  let intY = getRandomBetween(-1, 3, 0);
+  let intZ = getRandomBetween(-1, 3, 0);
+
+  intX = intX >= 0 ? 1 : intX;
+  intY = intY >= 0 ? 1 : intY;
+  intZ = intZ >= 0 ? 1 : intZ;
+
+  let spikes2Slider = getRandomBetween(0.1, 4);
+  let spikes3Slider = getRandomBetween(0.1, 4);
+  let audioEffectFactor = getRandomBetween(0.5, 2);
 
   // Only pick random colors on page loafing
   colorPicker1.val(getRandomHexColor());
@@ -161,7 +175,7 @@ $(document).ready(function () {
   let audioElement = document.createElement("audio");
 
   audioElement.src = `/src/assets/aud/${String(
-    Math.round(getRandomBetween(1, 10))
+    0 // Math.round(getRandomBetween(1, 10))
   )}.mp3`; // specify the path to your audio file
 
   audioElement.controls = true; // if you want to display the browser's default audio controls
@@ -192,19 +206,45 @@ $(document).ready(function () {
     }
     average /= frequencyData.length;
 
-    let audioEffect = average / 128.0; // Normalize to [0, 1]
+    let audioEffect = (average / 128.0) * audioEffectFactor; // Apply the audio effect factor
 
     let spikes = spikesSlider * processingSlider;
+    let spikes2 = spikes2Slider * processingSlider; // New parameter for the second wire form
+    let spikes3 = spikes3Slider * processingSlider; // New parameter for the third wire form
 
     for (let i = 0; i < sphere.geometry.vertices.length; i++) {
       let p = sphere.geometry.vertices[i];
+
+      // Apply different noise functions to each wire form
       p.normalize().multiplyScalar(
-        1 +
+        intX +
           0.3 *
             simplex.noise3D(
-              p.x * spikes + audioEffect,
+              p.x * spikes + audioEffect + time,
               p.y * spikes + audioEffect,
-              p.z * spikes + time + audioEffect
+              p.z * spikes + audioEffect
+            )
+      );
+
+      // Apply the second noise function for the second wire form
+      p.normalize().multiplyScalar(
+        intY +
+          0.3 *
+            simplex.noise3D(
+              p.x * spikes2 + audioEffect,
+              p.y * spikes2 + audioEffect + time,
+              p.z * spikes2 + audioEffect
+            )
+      );
+
+      // Apply the third noise function for the third wire form
+      p.normalize().multiplyScalar(
+        intZ +
+          0.3 *
+            simplex.noise3D(
+              p.x * spikes3 + audioEffect,
+              p.y * spikes3 + audioEffect,
+              p.z * spikes3 + audioEffect + time
             )
       );
     }
@@ -240,16 +280,27 @@ $(document).ready(function () {
   }
 
   $canvas.click(function () {
-    speedSlider = getRandomBetween(10, 100);
-    spikesSlider = getRandomBetween(0.2, 1.5);
-    processingSlider = getRandomBetween(0.5, 1);
-    rotationSpeed = getRandomBetween(0.001, 0.3);
+    speedSlider = getRandomBetween(10, 120);
+    spikesSlider = getRandomBetween(0.1, 4);
+    processingSlider = getRandomBetween(0.3, 1.2);
+    rotationSpeed = getRandomBetween(0.001, 0.5);
+    spikes2Slider = getRandomBetween(0.1, 4);
+    spikes3Slider = getRandomBetween(0.1, 4);
+    audioEffectFactor = getRandomBetween(0.5, 2);
     colorPicker1.val(getRandomHexColor());
     colorPicker2.val(getRandomHexColor());
     colorPicker3.val(getRandomHexColor());
     material.uniforms.color1.value = new THREE.Color(colorPicker1.val());
     material.uniforms.color2.value = new THREE.Color(colorPicker2.val());
     material.uniforms.color3.value = new THREE.Color(colorPicker3.val());
+    intX = getRandomBetween(-1, 3, 0);
+    intY = getRandomBetween(-1, 3, 0);
+    intZ = getRandomBetween(-1, 3, 0);
+    intX = intX >= 0 ? 1 : intX;
+    intY = intY >= 0 ? 1 : intY;
+    intZ = intZ >= 0 ? 1 : intZ;
+
+    console.log(intX, intY, intZ);
   });
 
   requestAnimationFrame(animate);
