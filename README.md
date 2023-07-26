@@ -40,3 +40,7 @@ Jobs:
 7. Ethernet Developer
 8. Bitccoin Developer
 9. Datascientist
+
+For applying to a position:
+
+https://jobs.kwami.io
