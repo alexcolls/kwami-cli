@@ -1,4 +1,4 @@
-import "src";
+import "./src";
 
 document.querySelector("#app").innerHTML = `
   <div>

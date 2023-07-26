@@ -1,2 +1,2 @@
-import "assets";
-import "components";
+import "./assets";
+import "./components";
