@@ -16,7 +16,7 @@ We aim to offer to the internet public a third option in the dual mononpoly of t
 
 We bealive in free education, collaborative tutoring and equal opporunities for everyone.
 
-Everyone can participate in the creation of the metaverse. We are a group of developers building everyday, sharing ideas and helping anyone who is interested in participate (in one way or another)
+Everyone can participate in the creation of the metaverse. We are a group of developers building everyday, sharing ideas and helping anyone who is interested in participate (in one way or another).
 
 Welcome to kwami.io
 
@@ -27,3 +27,16 @@ Discord: https://discord.com/kwami-io
 Telegram: https://telegram.com/kwami-io
 Twitter: https://twitter.com/kwami-io
 Web4: https://kwami.io
+
+Jobs:
+
+0. Software Engineer
+1. Frontend Developer
+2. Backend Developer
+3. Fullstack Developer
+4. 3D Developer
+5. 3D Artist
+6. Solana Developer
+7. Ethernet Developer
+8. Bitccoin Developer
+9. Datascientist
