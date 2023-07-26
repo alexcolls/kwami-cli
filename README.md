@@ -1,6 +1,6 @@
 # kwami.io
 
-We are a community of free thinkers, mathematicians, physcisians, data scientists, software engineers, hackers, devops, designers, traders, quants, coders, autodidacts, free thinkers, blockchain and AI enthutiasts, and anyone curious who is willing to learn, grow and share.
+We are a community of free thinkers, mathematicians, physcisians, data scientists, software engineers, hackers, devops, designers (3D & 2D), traders, quants, coders, autodidacts, free thinkers, blockchain and AI enthutiasts, and anyone curious who is willing to learn, grow and share.
 
 We are an horizontal organization, all blockchain profits are distributed equally to all active members, distributed automatically by smart contracts.
 
