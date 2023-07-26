@@ -1,2 +1,2 @@
 import "./kapps";
-import "./tests";
+import "./kwami";
