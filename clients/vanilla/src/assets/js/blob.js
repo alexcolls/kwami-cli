@@ -44,7 +44,7 @@ $(document).ready(function () {
   analyser.connect(audioContext.destination);
   let frequencyData = new Uint8Array(analyser.frequencyBinCount);
 
-  let $canvas = $("#blob canvas"),
+  const $canvas = $("#blob canvas"),
     canvas = $canvas[0],
     renderer = new THREE.WebGLRenderer({
       canvas: canvas,
@@ -59,7 +59,7 @@ $(document).ready(function () {
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-  let scene = new THREE.Scene(),
+  const scene = new THREE.Scene(),
     camera = new THREE.PerspectiveCamera(
       50,
       $canvas.width() / $canvas.height(),
@@ -71,9 +71,9 @@ $(document).ready(function () {
   camera.position.y = 5;
   camera.position.z = 0;
 
-  let geometry = new THREE.SphereGeometry(0.8, 128, 128);
+  const geometry = new THREE.SphereGeometry(0.8, 128, 128);
 
-  let lightTop = new THREE.DirectionalLight(0xffffff, 0.7);
+  const lightTop = new THREE.DirectionalLight(0xffffff, 0.7);
   lightTop.position.set(0, 500, 200);
   lightTop.castShadow = true;
   lightTop.shadow.mapSize.width = 4048;
@@ -86,7 +86,7 @@ $(document).ready(function () {
   lightTop.shadow.camera.bottom = -200;
   scene.add(lightTop);
 
-  let lightBottom = new THREE.DirectionalLight(0xffffff, 0.25);
+  const lightBottom = new THREE.DirectionalLight(0xffffff, 0.25);
   lightBottom.position.set(0, -500, 400);
   lightBottom.castShadow = true;
   lightBottom.shadow.mapSize.width = 5048;
@@ -99,7 +99,7 @@ $(document).ready(function () {
   lightBottom.shadow.camera.bottom = -200;
   scene.add(lightBottom);
 
-  let ambientLight = new THREE.AmbientLight(0x798296);
+  const ambientLight = new THREE.AmbientLight(0x798296);
   scene.add(ambientLight);
 
   const vertexShaders = `
