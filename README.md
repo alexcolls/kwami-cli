@@ -22,7 +22,8 @@ Welcome to kwami.io
 
 Are you one of us?
 
-Web4: https://kwami.io
+Github: https://github.com/kwami-io
 Discord: https://discord.com/kwami
 Telegram: https://telegram.com/kwami
 Twitter: https://twitter.com/kwami
+Web4: https://kwami.io
