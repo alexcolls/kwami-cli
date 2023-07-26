@@ -23,7 +23,7 @@ Welcome to kwami.io
 Are you one of us?
 
 Github: https://github.com/kwami-io
-Discord: https://discord.com/kwami
-Telegram: https://telegram.com/kwami
-Twitter: https://twitter.com/kwami
+Discord: https://discord.com/kwami-io
+Telegram: https://telegram.com/kwami-io
+Twitter: https://twitter.com/kwami-io
 Web4: https://kwami.io
