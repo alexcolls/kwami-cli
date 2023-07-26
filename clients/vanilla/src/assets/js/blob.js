@@ -1,37 +1,37 @@
 import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@0.121.1/examples/jsm/controls/OrbitControls.js";
 
-function getRandomBetween(min, max, digits = 2) {
+function getRandomBetween(min = 0, max = 1, digits = 2) {
   return Number((Math.random() * (max - min) + min).toFixed(digits));
 }
 
-function getRandomHexColor() {
-  const randomColor = Math.floor(Math.random() * 16777215).toString(16);
-  return "#" + randomColor.padStart(6, "0");
+function getRandomHex_color() {
+  const random_color = Math.floor(Math.random() * 16777215).toString(16);
+  return "#" + random_color.padStart(6, "0");
 }
 
 $(document).ready(function () {
   /***  BODY ***/
 
-  let rotation = getRandomBetween(0.001, 0.3);
-  let speedX = getRandomBetween(1, 0, 100),
-    speedY = getRandomBetween(0.2, 1.7),
-    speedZ = getRandomBetween(10, 100);
-  let spikesX = getRandomBetween(0.2, 1.7),
-    spikesY = getRandomBetween(0.2, 1.7),
-    spikesZ = getRandomBetween(0.2, 1.7);
-  let intensityX = getRandomBetween(0.5, 1),
-    intensityY = getRandomBetween(0.5, 1),
-    intensityZ = getRandomBetween(0.5, 1);
-  let colorX = getRandomHexColor(),
-    colorY = getRandomHexColor(),
-    colorZ = getRandomHexColor();
-  const positiveTextureProb = 50;
-  let textureX = getRandomBetween(-1, positiveTextureProb, 0),
-    textureY = getRandomBetween(-1, positiveTextureProb, 0),
-    textureZ = getRandomBetween(-1, positiveTextureProb, 0);
-  textureX = textureX >= 0 ? 1 : textureX;
-  textureY = textureY >= 0 ? 1 : textureY;
-  textureZ = textureZ >= 0 ? 1 : textureZ;
+  let ROTATION = getRandomBetween(0.001, 0.3);
+  let _speedX = getRandomBetween(1, 0, 100),
+    _speedY = getRandomBetween(0.2, 1.7),
+    _speedZ = getRandomBetween(10, 100);
+  let _spikesX = getRandomBetween(0.2, 1.7),
+    _spikesY = getRandomBetween(0.2, 1.7),
+    _spikesZ = getRandomBetween(0.2, 1.7);
+  let _intensityX = getRandomBetween(0.5, 1),
+    _intensityY = getRandomBetween(0.5, 1),
+    _intensityZ = getRandomBetween(0.5, 1);
+  let _colorX = getRandomHex_color(),
+    _colorY = getRandomHex_color(),
+    _colorZ = getRandomHex_color();
+  const positive_textureProb = 50;
+  let _textureX = getRandomBetween(-1, positive_textureProb, 0),
+    _textureY = getRandomBetween(-1, positive_textureProb, 0),
+    _textureZ = getRandomBetween(-1, positive_textureProb, 0);
+  _textureX = _textureX >= 0 ? 1 : _textureX;
+  _textureY = _textureY >= 0 ? 1 : _textureY;
+  _textureZ = _textureZ >= 0 ? 1 : _textureZ;
   let audioEffectFactor = getRandomBetween(0.5, 2);
   let audioElement = document.createElement("audio");
   audioElement.src = `/src/assets/aud/${String(5)}.mp3`;
@@ -119,11 +119,11 @@ $(document).ready(function () {
   const fragmentShaders = `
         varying vec3 vNormal;
         varying vec3 vPosition; // Add vPosition varying
-        uniform vec3 color1;
-        uniform vec3 color2;
-        uniform vec3 color3;
+        uniform vec3 _color1;
+        uniform vec3 _color2;
+        uniform vec3 _color3;
         uniform vec3 lightPosition;
-        uniform vec3 specularColor;
+        uniform vec3 specular_color;
         uniform float shininess;
 
         void main() {
@@ -131,42 +131,42 @@ $(document).ready(function () {
           vec3 viewDir = normalize(-vPosition);
           vec3 reflectDir = reflect(-lightDir, vNormal);
           float spec = pow(max(dot(viewDir, reflectDir), 0.0), shininess);
-          vec3 specular = specularColor * spec;
+          vec3 specular = specular_color * spec;
           float angle = atan(vPosition.y, vPosition.x);
           float hue = angle / (2.0 * 3.14159265359) + 0.5; // Normalize the angle to [0, 1]
-          vec3 color;
+          vec3 _color;
           if (hue < 1.0 / 3.0) {
-            color = mix(color1, color2, 3.0 * hue);
+            _color = mix(_color1, _color2, 3.0 * hue);
           } else if (hue < 2.0 / 3.0) {
-            color = mix(color2, color3, 3.0 * (hue - 1.0 / 3.0));
+            _color = mix(_color2, _color3, 3.0 * (hue - 1.0 / 3.0));
           } else {
-            color = mix(color3, color1, 3.0 * (hue - 2.0 / 3.0));
+            _color = mix(_color3, _color1, 3.0 * (hue - 2.0 / 3.0));
           }
-          gl_FragColor = vec4(color + specular, 1.0);
+          gl_Frag_color = vec4(_color + specular, 1.0);
         }
       `;
 
-  let material = new THREE.ShaderMaterial({
+  let MATERIAL = new THREE.ShaderMaterial({
     uniforms: {
-      color1: {
+      _color1: {
         type: "c",
-        value: new THREE.Color(colorX),
+        value: new THREE._color(_colorX),
       },
-      color2: {
+      _color2: {
         type: "c",
-        value: new THREE.Color(colorY),
+        value: new THREE._color(_colorY),
       },
-      color3: {
+      _color3: {
         type: "c",
-        value: new THREE.Color(colorZ),
+        value: new THREE._color(_colorZ),
       },
       lightPosition: {
         type: "v3",
         value: lightTop.position,
       },
-      specularColor: {
+      specular_color: {
         type: "c",
-        value: new THREE.Color(0xffffff),
+        value: new THREE._color(0xffffff),
       },
       shininess: {
         type: "f",
@@ -178,38 +178,38 @@ $(document).ready(function () {
     wireframe: false,
   });
 
-  let sphere = new THREE.Mesh(geometry, material);
-  sphere.castShadow = true;
-  scene.add(sphere);
+  let SPHERE = new THREE.Mesh(geometry, MATERIAL);
+  SPHERE.castShadow = true;
+  scene.add(SPHERE);
 
-  let controls = new OrbitControls(camera, renderer.domElement);
-  controls.enableDamping = true;
-  controls.dampingFactor = 0.05;
-  controls.rotateSpeed = 0.7;
-  controls.enableZoom = false;
+  const CONTROLS = new OrbitControls(camera, renderer.domElement);
+  CONTROLS.enableDamping = true;
+  CONTROLS.dampingFactor = 0.05;
+  CONTROLS.rotate_speed = 0.7;
+  CONTROLS.enableZoom = false;
 
   /*** INTERACTIONS ***/
 
   $canvas.click(function () {
-    rotation = getRandomBetween(0.001, 0.3);
-    speedX = getRandomBetween(10, 100);
-    speedY = getRandomBetween(0.2, 1.7);
-    speedZ = getRandomBetween(10, 100);
-    spikesX = getRandomBetween(0.2, 1.7);
-    spikesY = getRandomBetween(0.2, 1.7);
-    spikesZ = getRandomBetween(0.2, 1.7);
-    intensityX = getRandomBetween(0.5, 1);
-    intensityY = getRandomBetween(0.5, 1);
-    intensityZ = getRandomBetween(0.5, 1);
-    colorX = getRandomHexColor();
-    colorY = getRandomHexColor();
-    colorZ = getRandomHexColor();
-    textureX = getRandomBetwteen(-1, positiveTextureProb, 0);
-    textureY = getRandomBetween(-1, positiveTextureProb, 0);
-    textureZ = getRandomBetween(-1, positiveTextureProb, 0);
-    textureX = textureX >= 0 ? 1 : textureX;
-    textureY = textureY >= 0 ? 1 : textureY;
-    textureZ = textureZ >= 0 ? 1 : textureZ;
+    ROTATION = getRandomBetween(0.001, 0.3);
+    _speedX = getRandomBetween(10, 100);
+    _speedY = getRandomBetween(0.2, 1.7);
+    _speedZ = getRandomBetween(10, 100);
+    _spikesX = getRandomBetween(0.2, 1.7);
+    _spikesY = getRandomBetween(0.2, 1.7);
+    _spikesZ = getRandomBetween(0.2, 1.7);
+    _intensityX = getRandomBetween(0.5, 1);
+    _intensityY = getRandomBetween(0.5, 1);
+    _intensityZ = getRandomBetween(0.5, 1);
+    _colorX = getRandomHex_color();
+    _colorY = getRandomHex_color();
+    _colorZ = getRandomHex_color();
+    _textureX = getRandomBetwteen(-1, positive_textureProb, 0);
+    _textureY = getRandomBetween(-1, positive_textureProb, 0);
+    _textureZ = getRandomBetween(-1, positive_textureProb, 0);
+    _textureX = _textureX >= 0 ? 1 : _textureX;
+    _textureY = _textureY >= 0 ? 1 : _textureY;
+    _textureZ = _textureZ >= 0 ? 1 : _textureZ;
     audioEffectFactor = getRandomBetween(0.5, 2);
     console.log("click");
   });
@@ -218,66 +218,66 @@ $(document).ready(function () {
 
   function effect3D() {
     let time =
-      (performance.now() * 0.001 * speedX * Math.pow(intensityX, 3)) / 100;
+      (performance.now() * 0.001 * _speedX * Math.pow(_intensityX, 3)) / 100;
 
     analyser.getByteFrequencyData(frequencyData);
 
     let average = 0;
     for (let i = 0; i < frequencyData.length; i++) {
-      average += frequencyData[i] * speedZ;
+      average += frequencyData[i] * _speedZ;
     }
     average /= frequencyData.length;
 
-    let audioEffect = (average / 128.0) * audioEffectFactor * speedY;
+    let audioEffect = (average / 128.0) * audioEffectFactor * _speedY;
 
-    spikesX = spikesX * intensityX;
-    spikesY = spikesY * intensityY;
-    spikesZ = spikesZ * intensityZ;
+    _spikesX = _spikesX * _intensityX;
+    _spikesY = _spikesY * _intensityY;
+    _spikesZ = _spikesZ * _intensityZ;
 
-    for (let i = 0; i < sphere.geometry.vertices.length; i++) {
-      let p = sphere.geometry.vertices[i];
+    for (let i = 0; i < SPHERE.geometry.vertices.length; i++) {
+      let p = SPHERE.geometry.vertices[i];
       p.normalize().multiplyScalar(
-        textureX +
+        _textureX +
           0.3 *
             simplex.noise3D(
-              p.x * spikesX + audioEffect + time,
-              p.y * spikesY + audioEffect,
-              p.z * spikesZ + audioEffect
+              p.x * _spikesX + audioEffect + time,
+              p.y * _spikesY + audioEffect,
+              p.z * _spikesZ + audioEffect
             )
       );
       p.normalize().multiplyScalar(
-        textureY +
+        _textureY +
           0.3 *
             simplex.noise3D(
-              p.x * spikesX + audioEffect,
-              p.y * spikesY + audioEffect + time,
-              p.z * spikesZ + audioEffect
+              p.x * _spikesX + audioEffect,
+              p.y * _spikesY + audioEffect + time,
+              p.z * _spikesZ + audioEffect
             )
       );
       p.normalize().multiplyScalar(
-        textureZ +
+        _textureZ +
           0.3 *
             simplex.noise3D(
-              p.x * spikesX + audioEffect,
-              p.y * spikesY + audioEffect,
-              p.z * spikesZ + audioEffect + time
+              p.x * _spikesX + audioEffect,
+              p.y * _spikesY + audioEffect,
+              p.z * _spikesZ + audioEffect + time
             )
       );
     }
 
-    sphere.geometry.computeVertexNormals();
-    sphere.geometry.normalsNeedUpdate = true;
-    sphere.geometry.verticesNeedUpdate = true;
-    material.uniforms.color1.value = new THREE.Color(colorX);
-    material.uniforms.color2.value = new THREE.Color(colorY);
-    material.uniforms.color3.value = new THREE.Color(colorZ);
+    SPHERE.geometry.computeVertexNormals();
+    SPHERE.geometry.normalsNeedUpdate = true;
+    SPHERE.geometry.verticesNeedUpdate = true;
+    MATERIAL.uniforms._color1.value = new THREE._color(_colorX);
+    MATERIAL.uniforms._color2.value = new THREE._color(_colorY);
+    MATERIAL.uniforms._color3.value = new THREE._color(_colorZ);
 
     controls.update();
   }
 
   function rotateCamera() {
     const cameraPosition = camera.position;
-    const angle = (rotation * Math.PI) / 180;
+    const angle = (ROTATION * Math.PI) / 180;
     const cosAngle = Math.cos(angle);
     const sinAngle = Math.sin(angle);
     const newX = cameraPosition.x * cosAngle - cameraPosition.z * sinAngle;
