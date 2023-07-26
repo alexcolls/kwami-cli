@@ -1,3 +1,3 @@
 import "./clients";
-import "./contrats";
+import "./contracts";
 import "./servers";
