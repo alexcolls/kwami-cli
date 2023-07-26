@@ -1,5 +1,4 @@
-import "./src/css/index.css";
-import "./src/js";
+import "src";
 
 document.querySelector("#app").innerHTML = `
   <div>
