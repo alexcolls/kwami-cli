@@ -2,7 +2,6 @@
 
 const { program } = require("commander");
 const figlet = require("figlet");
-const shell = require("shelljs");
 const inquirer = require("inquirer");
 
 // Function to display ASCII art
