@@ -1,29 +1,62 @@
 #!/bin/bash
 
-echo chmod +x ./install.sh
-
 # Function to install kwami globally with privileges
 function installKwamiGlobally() {
   echo "Installing kwami globally with privileges..."
-  sudo npm i -g ./.
+  
+  # Installing required libraries
+  echo "Installing required libraries..."
+  sudo npm i -g figlet fs commander inquirer
+
+  # Installing kwami
+  echo "Installing kwami package..."
+  sudo npm i -g ./
 
   # Verify installation
-  kwami --version
+  if ! $(which kwami) --version &>/dev/null; then
+    echo "Installation completed successfully!"
+    
+    # Create a symbolic link to make kwami accessible from anywhere
+    sudo ln -sf "$(which kwami)" /usr/local/bin/kwami
+    
+    # Provide a success message for the symbolic link creation
+    if [ -L "/usr/local/bin/kwami" ]; then
+      echo "Symbolic link for 'kwami' created successfully!"
+    else
+      echo "Failed to create symbolic link for 'kwami'."
+    fi
+  else
+    echo "Installation failed. Please try again or manually install kwami."
+  fi
 }
 
 # Function to uninstall kwami globally with privileges
 function uninstallKwamiGlobally() {
   echo "Uninstalling kwami..."
+  
+  # Uninstalling kwami
   sudo npm uninstall -g kwami-cli
 
   # Verify uninstallation
-  kwami --version 2>/dev/null
-  if [[ $? -eq 0 ]]; then
-    echo "Uninstallation failed. Please try again or manually uninstall kwami."
-  else
+  if ! kwami --version &>/dev/null; then
     echo "Uninstallation completed successfully!"
+    
+    # Remove the symbolic link
+    sudo rm -f /usr/local/bin/kwami
+    
+    # Provide a success message for the symbolic link removal
+    if [ ! -L "/usr/local/bin/kwami" ]; then
+      echo "Symbolic link for 'kwami' removed successfully!"
+    fi
+  else
+    echo "Uninstallation failed. Please try again or manually uninstall kwami."
   fi
 }
+
+# Cool welcome with ASCII art
+echo ""
+cat ./ascii_art.txt
+echo ""
 
 # Check if running with root permissions
 if [[ $EUID -eq 0 ]]; then

@@ -1,8 +1,22 @@
 #!/usr/bin/env node
 
+const fs = require("fs");
 const { program } = require("commander");
-const figlet = require("figlet");
+// const figlet = require("figlet");
 const inquirer = require("inquirer");
+
+// Function to display ASCII art from a file
+function displayAsciiArtFromFile() {
+  fs.readFile("ascii-art.txt", "utf8", (err, data) => {
+    if (err) {
+      console.error("Error reading ASCII art file:", err);
+      displayAsciiArt(); // Fallback to the original ASCII art function if the file cannot be read
+      return;
+    }
+    console.log(data);
+    displayAsciiArt(); // Call the original ASCII art function after printing the file content
+  });
+}
 
 // Function to display ASCII art
 function displayAsciiArt() {
@@ -83,7 +97,7 @@ function displayHelp() {
 
 // Main program
 program.version("1.0.0");
-displayAsciiArt();
+displayAsciiArtFromFile(); // Load and print the ASCII art from the file
 displayMainOptions();
 
 program

@@ -7,7 +7,6 @@
   },
   "dependencies": {
     "commander": "^8.3.0",
-    "figlet": "^1.5.0",
     "shelljs": "^0.8.4",
     "inquirer": "^8.3.0"
   },
