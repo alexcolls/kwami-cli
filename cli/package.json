@@ -1,0 +1,14 @@
+{
+  "name": "kwami-cli",
+  "version": "0.1.0",
+  "main": "create.js",
+  "bin": {
+    "kwami": "create.js"
+  },
+  "type": "module",
+  "dependencies": {
+    "inquirer": "^8.0.0",
+    "fs-extra": "^10.0.0",
+    "commander": "^8.3.0"
+  }
+}

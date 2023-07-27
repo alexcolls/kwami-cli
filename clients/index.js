@@ -1,2 +1,2 @@
 import "./kapps";
-import "./kwami";
+import "./kwami.io";
