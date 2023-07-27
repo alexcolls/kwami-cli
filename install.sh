@@ -1,0 +1,1 @@
+echo ./cli/install.sh

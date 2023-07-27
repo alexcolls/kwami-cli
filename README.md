@@ -20,13 +20,17 @@ Welcome to kwami.io
 
 Are you one of us?
 
-Github: https://github.com/kwami-io
-Discord: https://discord.com/kwami-io
-Telegram: https://telegram.com/kwami-io
+Official: https://kwami.io
+Web4: https://web4.kwami.io
+Scan: https://scan.kwami.io
+Market: https://market.kwami.io
+DAO: https://dao.kwami.io
 Twitter: https://twitter.com/kwami-io
-Web4: https://kwami.io
+Telegram: https://telegram.com/kwami-io
+Discord: https://discord.com/kwami-io
+Github: https://github.com/kwami-io
 
-Jobs:
+# Jobs:
 
 0. Software Engineer
 1. Frontend Developer
