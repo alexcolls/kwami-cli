@@ -1,2 +1,0 @@
-import "./kapps";
-import "./kwami";

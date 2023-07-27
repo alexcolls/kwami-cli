@@ -1,9 +1,27 @@
 #!/bin/bash
 
-# Cool welcome with ASCII art
-echo ""
-cat ./cli/ascii_art.txt
-echo ""
+# Function to print the ASCII art
+function printAsciiArt() {
+  cat << "EOF"
+ ____  __.__      __  _____      _____  .___ 
+|    |/ _/  \    /  \/  _  \    /     \ |   |
+|      < \   \/\/   /  /_\  \  /  \ /  \|   |
+|    |  \ \        /    |    \/    Y    \   |
+|____|__ \ \__/\  /\____|__  /\____|__  /___|
+        \/      \/         \/         \/     
+                            
+EOF
+}
+
+# Function to print the welcome message with program name and version
+function printWelcomeMessage() {
+  local version="1.0.0"  # Replace this with the actual version of kwami-cli
+  echo ""
+  echo "Welcome to kwami-cli installer. (Version: $version)"
+  echo ""
+  echo "To install kwami-cli in yournos. The program will install or re-install/update global dependencies like node, python, npm and yarn."
+  echo ""
+}
 
 # Function to print the menu and ask for user choice
 function showMenuAndGetChoice() {
@@ -46,15 +64,22 @@ function installGlobalDependencies() {
   echo "Installing global dependencies..."
   echo ""
 
-  # Install Node.js and npm
-  sudo apt-get update
-  sudo apt-get install -y nodejs npm
+  # Resolve unmet dependencies
+  apt --fix-broken install
+
+  # Install Node.js using the NodeSource repository (LTS version)
+  curl -fsSL https://deb.nodesource.com/setup_lts.x | bash -
+  apt-get install -y nodejs
+
+  # Update Node.js and npm
+  npm install -g n
+  n latest
 
   # Install Yarn
-  sudo npm i -g yarn
+  npm i -g yarn
 
-  # Install Python
-  sudo apt-get install -y python3
+  # Install Python 3.10
+  apt-get install -y python3.10
 
   echo ""
   echo "Global dependencies installed successfully!"
@@ -67,14 +92,27 @@ function installKwamiGlobally() {
   echo "Installing kwami-cli dependencies and kwami globally..."
   echo ""
 
-  # Navigate to the correct directory
-  pushd ./cli
-
   # Install figlet, fs, inquirer
-  sudo npm i -g figlet fs inquirer
+  npm i -g figlet fs inquirer
+
+  # Check if commander is already installed
+  if npm list -g commander &>/dev/null; then
+    echo "commander is already installed."
+  else
+    # Install commander with the specified version (8.2.0)
+    if npm i -g commander@8.2.0; then
+      echo "commander@8.2.0 installed successfully!"
+    else
+      echo "Installation of commander@8.2.0 failed. Please try again or manually install the dependency."
+      return 1
+    fi
+  fi
+
+  # Get the absolute path of the kwami-cli directory
+  KWAMI_CLI_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
   # Install kwami-cli
-  if sudo npm i -g ./; then
+  if npm i -g "$KWAMI_CLI_DIR"; then
     echo ""
     echo "We are done! kwami-cli is now installed! You can use it by calling \$ kwami in your terminal."
     echo ""
@@ -82,16 +120,11 @@ function installKwamiGlobally() {
     echo ""
     echo "Installation of kwami-cli failed. Please try again or manually install kwami-cli."
     echo ""
-    # Return to the original directory
-    popd
     return 1
   fi
-
-  # Return to the original directory
-  popd
 }
 
-# Function to uninstall Node.js, npm, Yarn, and Python if requested
+# Function to uninstall global dependencies
 function uninstallGlobalDependencies() {
   echo ""
   echo "Uninstalling global dependencies..."
@@ -104,13 +137,13 @@ function uninstallGlobalDependencies() {
   case $selected_option in
     Yes)
       # Uninstall Node.js and npm
-      sudo apt-get remove -y nodejs npm
+      apt-get remove -y nodejs npm
 
       # Uninstall Yarn
-      sudo npm uninstall -g yarn
+      npm uninstall -g yarn
 
-      # Uninstall Python
-      sudo apt-get remove -y python3
+      # Uninstall Python 3.10
+      apt-get remove -y python3.10
 
       echo ""
       echo "Global dependencies uninstalled successfully!"
@@ -136,10 +169,10 @@ function uninstallKwamiGlobally() {
   echo ""
 
   # Uninstall figlet, fs, inquirer
-  sudo npm uninstall -g figlet fs inquirer
+  npm uninstall -g figlet fs inquirer
 
   # Uninstall kwami-cli
-  if sudo npm uninstall -g kwami-cli; then
+  if npm uninstall -g kwami-cli; then
     echo ""
     echo "Uninstallation of kwami-cli completed successfully!"
     echo ""
@@ -158,52 +191,74 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
-# Ask user what to do
-while true; do
-  showMenuAndGetChoice "What would you like to do?" "Install" "Uninstall"
-  case $selected_option in
-    Install)
-      installGlobalDependencies
-      break
-      ;;
-    Uninstall)
-      uninstallKwamiGlobally
-      uninstallGlobalDependencies
-      break
-      ;;
-    Exit)
-      echo ""
-      echo "Exiting the program. Goodbye!"
-      echo ""
-      exit 0
-      ;;
-    *)
-      echo ""
-      echo "Invalid option, please select again."
-      echo ""
-      ;;
-  esac
-done
+# Main program
+function main() {
+  printAsciiArt
+  printWelcomeMessage
 
-# Ask user if they want to install kwami globally with privileges
-while true; do
-  echo ""
-  showMenuAndGetChoice "Do you want to install kwami globally with privileges?" "Yes" "No"
-  case $selected_option in
-    Yes)
-      installKwamiGlobally
-      break
-      ;;
-    No)
-      echo ""
-      echo "Skipping kwami installation. See you soon!"
-      echo ""
-      break
-      ;;
-    *)
-      echo ""
-      echo "Invalid option, please select again."
-      echo ""
-      ;;
-  esac
-done
+  # Ask user what to do
+  while true; do
+    showMenuAndGetChoice "What would you like to do?" "Install" "Uninstall"
+    case $selected_option in
+      Install)
+        installGlobalDependencies
+        break
+        ;;
+      Uninstall)
+        uninstallKwamiGlobally
+        uninstallGlobalDependencies
+        break
+        ;;
+      Exit)
+        echo ""
+        echo "Exiting the program. Goodbye!"
+        echo ""
+        exit 0
+        ;;
+      *)
+        echo ""
+        echo "Invalid option, please select again."
+        echo ""
+        ;;
+    esac
+  done
+
+  # Ask user if they want to install kwami globally with privileges
+  while true; do
+    echo ""
+    showMenuAndGetChoice "Do you want to install kwami globally with privileges?" "Yes" "No"
+    case $selected_option in
+      Yes)
+        installKwamiGlobally
+        break
+        ;;
+      No)
+        echo ""
+        echo "Skipping kwami installation. See you soon!"
+        echo ""
+        break
+        ;;
+      *)
+        echo ""
+        echo "Invalid option, please select again."
+        echo ""
+        ;;
+    esac
+  done
+
+  # Install commander module
+  if npm install -g commander; then
+    echo ""
+    echo "commander installed successfully!"
+  else
+    echo ""
+    echo "Installation of commander failed. Please try again or manually install the dependency."
+    echo ""
+    exit 1
+  fi
+
+  # Call the main program
+  kwami
+}
+
+main

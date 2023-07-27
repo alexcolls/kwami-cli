@@ -1,6 +1,6 @@
-import "./clients";
+import "./kwami/clients";
 import "./contracts";
-import "./servers";
+import "./kwami/servers";
 
 import "./style.css";
 import javascriptLogo from "./javascript.svg";

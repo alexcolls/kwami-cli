@@ -1,1 +1,0 @@
-import "./vanilla/index.test";
