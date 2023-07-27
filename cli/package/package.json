@@ -1,9 +1,9 @@
 {
   "name": "kwami-cli",
   "version": "0.1.0",
-  "main": "index.js",
+  "main": "install.js",
   "bin": {
-    "cli": "main.js"
+    "cli": "install.js"
   },
   "type": "module",
   "dependencies": {

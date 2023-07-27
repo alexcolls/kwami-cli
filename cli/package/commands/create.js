@@ -45,4 +45,4 @@ program
     }
   });
 
-program.parse(process.argv);
+program.parseAsync(process.argv); // Use parseAsync instead of parse
