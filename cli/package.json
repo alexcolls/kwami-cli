@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "main": "create.js",
   "bin": {
-    "kwami": "create.js"
+    "commands": "index.js"
   },
   "type": "module",
   "dependencies": {
