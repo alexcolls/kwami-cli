@@ -19,7 +19,7 @@ function printWelcomeMessage() {
   echo ""
   echo "Welcome to kwami-cli installer. (Version: $version)"
   echo ""
-  echo "To install kwami-cli in yournos. The program will install or re-install/update global dependencies like node, python, npm and yarn."
+  echo "To install kwami-cli in your system, the program will install or re-install/update global dependencies like node, python, npm, and yarn."
   echo ""
 }
 
@@ -73,7 +73,7 @@ function installGlobalDependencies() {
 
   # Update Node.js and npm
   npm install -g n
-  n latest
+  n 18
 
   # Install Yarn
   npm i -g yarn
@@ -83,7 +83,6 @@ function installGlobalDependencies() {
 
   echo ""
   echo "Global dependencies installed successfully!"
-  echo ""
 }
 
 # Function to install kwami-cli dependencies and kwami program globally
@@ -93,14 +92,14 @@ function installKwamiGlobally() {
   echo ""
 
   # Install figlet, fs, inquirer
-  npm i -g figlet fs inquirer
+  sudo npm i -g figlet fs inquirer
 
   # Check if commander is already installed
-  if npm list -g commander &>/dev/null; then
+  if sudo npm list -g commander &>/dev/null; then
     echo "commander is already installed."
   else
     # Install commander with the specified version (8.2.0)
-    if npm i -g commander@8.2.0; then
+    if sudo npm i -g commander@8.2.0; then
       echo "commander@8.2.0 installed successfully!"
     else
       echo "Installation of commander@8.2.0 failed. Please try again or manually install the dependency."
@@ -108,11 +107,14 @@ function installKwamiGlobally() {
     fi
   fi
 
+  # Wait for a few seconds to ensure 'commander' is available
+  sleep 2
+
   # Get the absolute path of the kwami-cli directory
   KWAMI_CLI_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
   # Install kwami-cli
-  if npm i -g "$KWAMI_CLI_DIR"; then
+  if sudo npm i -g "$KWAMI_CLI_DIR"; then
     echo ""
     echo "We are done! kwami-cli is now installed! You can use it by calling \$ kwami in your terminal."
     echo ""
@@ -183,6 +185,21 @@ function uninstallKwamiGlobally() {
   fi
 }
 
+# Function to install commander module globally with privileges
+function installCommander() {
+  echo ""
+  echo "Installing commander globally..."
+  echo ""
+
+  # Install commander with the specified version (8.2.0)
+  if sudo npm i -g commander@8.2.0; then
+    echo "commander@8.2.0 installed successfully!"
+  else
+    echo "Installation of commander@8.2.0 failed. Please try again or manually install the dependency."
+    exit 1
+  fi
+}
+
 # Check if running with root permissions
 if [[ $EUID -ne 0 ]]; then
   echo ""
@@ -191,74 +208,67 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
-# Main program
-function main() {
-  printAsciiArt
-  printWelcomeMessage
+# Install commander module globally with privileges
+installCommander
 
-  # Ask user what to do
-  while true; do
-    showMenuAndGetChoice "What would you like to do?" "Install" "Uninstall"
-    case $selected_option in
-      Install)
-        installGlobalDependencies
-        break
-        ;;
-      Uninstall)
-        uninstallKwamiGlobally
-        uninstallGlobalDependencies
-        break
-        ;;
-      Exit)
-        echo ""
-        echo "Exiting the program. Goodbye!"
-        echo ""
-        exit 0
-        ;;
-      *)
-        echo ""
-        echo "Invalid option, please select again."
-        echo ""
-        ;;
-    esac
-  done
+# Source the bash profile to update the environment
+source "$HOME/.bash_profile" || source "$HOME/.bashrc"
 
-  # Ask user if they want to install kwami globally with privileges
-  while true; do
-    echo ""
-    showMenuAndGetChoice "Do you want to install kwami globally with privileges?" "Yes" "No"
-    case $selected_option in
-      Yes)
-        installKwamiGlobally
-        break
-        ;;
-      No)
-        echo ""
-        echo "Skipping kwami installation. See you soon!"
-        echo ""
-        break
-        ;;
-      *)
-        echo ""
-        echo "Invalid option, please select again."
-        echo ""
-        ;;
-    esac
-  done
+printAsciiArt
+printWelcomeMessage
 
-  # Install commander module
-  if npm install -g commander; then
-    echo ""
-    echo "commander installed successfully!"
-  else
-    echo ""
-    echo "Installation of commander failed. Please try again or manually install the dependency."
-    echo ""
-    exit 1
-  fi
+# Ask user what to do
+while true; do
+  showMenuAndGetChoice "What would you like to do?" "Install" "Uninstall"
+  case $selected_option in
+    Install)
+      installGlobalDependencies
+      break
+      ;;
+    Uninstall)
+      uninstallKwamiGlobally
+      uninstallGlobalDependencies
+      break
+      ;;
+    Exit)
+      echo ""
+      echo "Exiting the program. Goodbye!"
+      echo ""
+      exit 0
+      ;;
+    *)
+      echo ""
+      echo "Invalid option, please select again."
+      echo ""
+      ;;
+  esac
+done
 
-  # Call the main program
-  kwami
-}
+# Ask user if they want to install kwami globally with privileges
+while true; do
+  echo ""
+  showMenuAndGetChoice "Do you want to install kwami globally with privileges?" "Yes" "No"
+  case $selected_option in
+    Yes)
+      installKwamiGlobally
+      break
+      ;;
+    No)
+      echo ""
+      echo "Skipping kwami installation. See you soon!"
+      echo ""
+      break
+      ;;
+    *)
+      echo ""
+      echo "Invalid option, please select again."
+      echo ""
+      ;;
+  esac
+done
 
-main
+# Export the npm global bin directory to PATH
+export PATH="$PATH:/usr/local/bin"
+
+# Call the main program
+kwami
