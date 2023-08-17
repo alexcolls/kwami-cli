@@ -1,21 +1,20 @@
----
+-          *       .     .        .          .      *          .
+           .       .    .         .          .      .          *       -
+          _._   ___.__   .  __  __.__      __.__  ._._.        .       .
+      .-||   |./   /. \ .. /  \/  .  \    /  .  \ |   |        _     __·__
+      .-||   ..   /.   \/\/   /  /*\  \  /  \*/  \|   |       | |   //   \\
+      .-||   |\   \\   ..    /.   |    \/    Y    \   |   .   | | ·||  ·  ||·
+      .-||___| \___\\__/\   / \___|__  /\____|__  /___|  ...  |_|   \\_ _//
+          .      -       \./      -  \/      -  \/  .     ·    -      -_-
+          .       .       *           .             .          .       .
+          *        .      .          . .            -          *       -
+                                      .
 
-         *       .     .        .          .      *          .
-         .       .    .         .          .      .          *       -
-        _._   ___.__   .  __  __.__      __.__  ._._.        .       .
-    .-||   |./   /. \ .. /  \/  .  \    /  .  \ |   |        _     __·__
-    .-||   ..   /.   \/\/   /  /*\  \  /  \*/  \|   |       | |   //   \\
-    .-||   |\   \\   ..    /.   |    \/    Y    \   |   .   | | ·||  ·  ||·
-    .-||___| \___\\__/\   / \___|__  /\____|__  /___|  ...  |_|   \\_ _//
-        .      -       \./      -  \/      -  \/  .     ·    -      -_-
-        .       .       *           .             .          .       .
-        *        .      .          . .            -          *       -
-                                    .
-THE FIRST WEB4 STANDARD JS FRAMEWORK FOR DEVELOPING, TESTING & DEPLOYING ONE-PAGE 3D APPS WITH BUILT-IN BLOCKCHAIN & AI API LIBRARIES FOR TEXT, IMAGE, AUDIO, VIDEO AND DOCUMENTS
+  THE FIRST WEB4 STANDARD JS FRAMEWORK FOR DEVELOPING, TESTING & DEPLOYING ONE-PAGE 3D APPS WITH BUILT-IN BLOCKCHAIN & AI API LIBRARIES FOR TEXT, IMAGE, AUDIO, VIDEO AND DOCUMENTS
 
----
+-
 
-# Welcome to KWAMI.io
+# Welcome to kwami-cli
 
 ## THE COMMUNITY
 
