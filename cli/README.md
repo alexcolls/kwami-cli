@@ -1,4 +1,22 @@
-# kwami.io
+---
+
+         .                               .
+                                    .
+                                      * .
+        _._   ___.__      __  __.__  .   __.__  ._._.       .           .
+       |   |./   /. \ .. /  \/  .  \    /  .  \ |   |              .
+       |   ..   /.   \/\/   /  /*\  \  /  \*/  \|   |    ___       *  .
+       |   |\   \\   ..    /.   .    \/    Y    \   |   |     |    |         .
+       |___| \___\\__/\   / \___|__  /\____|__  /___|   |___  |___ |    .
+                       \./         \/         \/                .
+                        *                              .
+                      .
+                             .       .
+                  .
+
+---
+
+## Welcome to KWAMI.io
 
 We are a community of free thinkers, mathematicians, physcisians, data scientists, software engineers, hackers, devops, designers (3D & 2D), traders, quants, coders, autodidacters, blockchain and AI developers and/or enthutiasts, and anyone in the world, who is curious, ambitious and willing to learn, grow and share in this fair digital organization.
 
@@ -20,13 +38,17 @@ Welcome to kwami.io
 
 Are you one of us?
 
-Github: https://github.com/kwami-io
-Discord: https://discord.com/kwami-io
-Telegram: https://telegram.com/kwami-io
+Official: https://kwami.io
+Web4: https://web4.kwami.io
+Scan: https://scan.kwami.io
+Market: https://market.kwami.io
+DAO: https://dao.kwami.io
 Twitter: https://twitter.com/kwami-io
-Web4: https://kwami.io
+Telegram: https://telegram.com/kwami-io
+Discord: https://discord.com/kwami-io
+Github: https://github.com/kwami-io
 
-Jobs:
+# Jobs:
 
 0. Software Engineer
 1. Frontend Developer
@@ -42,3 +64,32 @@ Jobs:
 For applying to a position:
 
 https://jobs.kwami.io
+
+# PROJECT
+
+## Introduction
+
+### 1. So what the f\* is Web4?
+
+Web4 is the natural evolution of Web3.
+
+Web3 had its hype on 2020-2021 with the arrival of NFT marketplaces, like Opensea, however, it last until 2022 and make last adopters lost million of $ caused a clearly by a wrong
+
+Web1 = read
+Web2 = Web1 + write
+Web3 = Web2 + Blockchain
+Web4 = Web3 + AI + 3D
+
+## kwmai-cli
+
+The command line kwami-cli is a javascript package that is installed in your os globally. You can run the cli by:
+
+1. kwami.io
+
+2. kwami
+   web
+   mobile
+
+3. kwami
+
+4. kwapp
