@@ -1,4 +1,4 @@
--          *       .     .        .          .      *          .
+           *       .     .        .          .      *          .
            .       .    .         .          .      .          *       -
           _._   ___.__   .  __  __.__      __.__  ._._.        .       .
       .-||   |./   /. \ .. /  \/  .  \    /  .  \ |   |        _     __·__
@@ -10,9 +10,7 @@
           *        .      .          . .            -          *       -
                                       .
 
-  THE FIRST WEB4 STANDARD JS FRAMEWORK FOR DEVELOPING, TESTING & DEPLOYING ONE-PAGE 3D APPS WITH BUILT-IN BLOCKCHAIN & AI API LIBRARIES FOR TEXT, IMAGE, AUDIO, VIDEO AND DOCUMENTS
-
--
+THE FIRST WEB4 STANDARD JS FRAMEWORK FOR DEVELOPING, TESTING & DEPLOYING ONE-PAGE 3D APPS WITH BUILT-IN BLOCKCHAIN & AI API LIBRARIES FOR TEXT, IMAGE, AUDIO, VIDEO AND DOCUMENTS
 
 # Welcome to kwami-cli
 
